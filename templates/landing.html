@@ -1,0 +1,175 @@
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from wpkixx.com/html/winku/landing.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 30 Jan 2019 10:40:27 GMT -->
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
+	<title>
+		{% if request.user.is_authenticated %}
+		 {{ request.user.username }} | وینکی
+		{% else %}
+		 Winki|وینکی
+		 {% endif %}
+	</title>
+	<link rel="icon" href="{% static 'images/fav.png' %}" type="image/png" sizes="16x16">
+
+	<link rel="stylesheet" href="{% static 'css/main.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+	<link rel="stylesheet" href="{% static 'css/color.css' %}">
+	<link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+
+</head>
+
+<body>
+	<!--<div class="se-pre-con"></div>-->
+	<div class="theme-layout">
+		<div class="container-fluid pdng0">
+			<div class="row merged">
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="land-featurearea">
+						<div class="land-meta">
+							<h1>وینکی</h1>
+							<p style="text-align: center">
+								وینکی رایگان است برای استفاده تا زمانی که شما می خواهید با دو پروژه کار کنید.
+							</p>
+							<div class="friend-logo">
+								<span><img src="{% static 'images/wink.png' %}" alt=""></span>
+							</div>
+							<a href="#" title="" class="folow-me">مارا دنبال کنید</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="login-reg-bg">
+						<div class="log-reg-area sign">
+							<h2 class="log-title">ورود</h2>
+							<p>
+								هنوز در وینکی ثبت نام نکرده اید؟ <a href="#" title="">قوانین را بخوانید </a> یا <a href="account/register" title="">از اینجا ثبت نام کنید</a>
+							</p>
+							<form method="post">
+								{% csrf_token %}
+								<div class="form-group">
+									{{ login_form.username }}
+									<label class="control-label" for="input">{{ login_form.username.label }}</label><i class="mtrl-select"></i>
+									{% for error in login_form.username.errors %}
+										<p style="color: red;">{{ error }}</p>
+									{% endfor %}
+								</div>
+								<div class="form-group">
+									{{ login_form.password }}
+ 									<label class="control-label" for="{{ login_form.password.id_for_label }}">{{ login_form.password.label }}</label><i class="mtrl-select"></i>
+									{% for error in login_form.oassword.errors %}
+										<p style="color: red;">{{ error }}</p>
+									{% endfor %}
+								</div>
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" checked="checked" /><i class="check-box"></i>همیشه من را به یاد داشته باش.
+									</label>
+								</div>
+								<a href="{% url 'password_reset' %}" title="" class="forgot-pwd">رمز عبور خود را فراموش کرده اید؟</a>
+								<div class="submit-btns">
+									<button class="mtr-btn signin" type="submit"><span>ورود</span></button>
+									
+								</div>
+							</form>
+						</div>
+						<div class="log-reg-area reg">
+							<h2 class="log-title">ثبت نام</h2>
+							<p>
+								هنوز در وینکی ثبت نام نکرده اید؟ <a href="" title="">قوانین را بخوانید </a> یا <a href="#" title="">از اینجا ثبت نام کنید</a>
+							</p>
+							<form method="post">
+								{% csrf_token %}
+								<div class="form-group">
+									{{ register_form.first_name }}
+									<label class="control-label" for="input">{{ register_form.first_name.label }}</label><i class="mtrl-select"></i>
+									{% for error in register_form.first_name.errors %}
+										<p style="color: red;">{{ error }}</p>
+									{% endfor %}
+								</div>
+								<div class="form-group">
+									{{ register_form.last_name }}
+									<label class="control-label" for="input">{{ register_form.last_name.label }}</label><i class="mtrl-select"></i>
+									{% for error in register_form.last_name.errors %}
+										<p style="color: red;">{{ error }}</p>
+									{% endfor %}
+								</div>
+								<div class="form-group">
+									{{ register_form.username }}
+									<label class="control-label" for="input">{{ register_form.username.label }}</label><i class="mtrl-select"></i>
+									{% for error in register_form.username.errors %}
+										<p style="color: red;">{{ error }}</p>
+									{% endfor %}
+								</div>
+								<div class="form-group">
+									{{ register_form.password }}
+									<label class="control-label" for="input">{{ register_form.password.label }}</label><i class="mtrl-select"></i>
+									{% for error in register_form.password.errors %}
+										<p style="color: red;">{{ error }}</p>
+									{% endfor %}
+								</div>
+								<div class="form-group">
+									{% csrf_token %}
+									{{ register_form.re_password2 }}
+									<label class="control-label" for="input">تکرار رمز عبور</label><i class="mtrl-select"></i>
+									{% for error in register_form.re_password.errors %}
+										<p style="color: red;">{{ error }}</p>
+									{% endfor %}
+								</div>
+								<div class="form-radio">
+									<div class="radio">
+										<label>
+										{{ register_form.gender }}<i class="check-box"></i>مرد
+										</label>
+									</div>
+									<div class="radio">
+										<label>
+											<input type="radio" name="radio" /><i class="check-box"></i>زن
+										</label>
+									</div>
+								</div>
+								<div class="form-group">
+									{{ form.email }}
+									<label class="control-label" for="input"><a href="http://wpkixx.com/cdn-cgi/l/email-protection"
+											class="__cf_email__" data-cfemail="d297bfb3bbbe92">[ایمیل&#160;محافظت شده است]</a></label><i
+										class="mtrl-select"></i>
+									{% for error in register_form.email.errors %}
+										<p style="color: red;">{{ error }}</p>
+									{% endfor %}
+								</div>
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" checked="checked" /><i class="check-box"></i>شرایط و ضوابط را قبول می کنید؟
+									</label>
+								</div>
+								<a href="#" title="" class="already-have">در حال حاضر یک حساب کاربری دارید</a>
+								<div class="submit-btns">
+									<button class="mtr-btn signup" type="submit"><span>ثبت نام</span></button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script data-cfasync="false" src="{% static '../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js' %}"></script>
+	<script src="{% static 'js/main.min.js' %}"></script>
+	<script src="{% static 'js/script.js' %}"></script>
+
+</body>
+
+<!-- Mirrored from wpkixx.com/html/winku/landing.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 30 Jan 2019 10:40:28 GMT -->
+
+</html>
+
+{% endblock %}

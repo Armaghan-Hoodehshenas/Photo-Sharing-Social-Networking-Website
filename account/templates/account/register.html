@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+  <h1>ثبت نام در وینکی</h1>
+  <p>لطفا از طریق فرم زیر در وینکی ثبت نام کن:</p>
+  <form method="post">
+    {{ user_form.as_p }}
+    {% csrf_token %}
+    <p><input type="submit" value="اکانت من رو بساز"></p>
+  </form>
+{% endblock %}

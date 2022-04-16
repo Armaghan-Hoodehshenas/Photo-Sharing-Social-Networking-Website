@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>پروفایل {{ request.user.first_name }}</h1>
+  <p></p>
+   {% with total_images_created=request.user.images_created.count %}
+    <p>به وینکی خوش آمدی! شما {{ total_images_created }} مطلب را در پروفایلت بارگذاری کرده ای.</p>
+   {% endwith %}
+  <p>شما می توانی <a href="{% url "edit" %}">پروفایلت را ویرایش کنی</a> و یا <a href="{% url "password_change" %}">گذرواژه خودت را تغییر بدهی</a>.</p>
+  <p>برای نشانه گذاری تصاویر از وب سایت های دیگر، دکمه ی روبرو را به سمت فضای نوار ابزار بالای صفحه بکشید و در آنجا رها کنید  ← <a href="javascript:{% include "bookmarklet_launcher.js" %}" class="button">!نشانه گذار وینکی</a><p>
+  <br/>
+  <h2>در وینکی چه خبره؟</h2>
+  <div id="action-list">
+    {% for action in actions %}
+      {% include "actions/action/detail.html" %}
+    {% endfor %}
+  </div>
+{% endblock %}
+
+

@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+  <h1>خوش آمدی {{ new_user.first_name }}!</h1>
+  <p>شما با موفقیت در وینکی ثبت نام کردی. حالا میتونی  <a href="{% url "login" %}">وارد بشی</a>.</p>
+{% endblock %}

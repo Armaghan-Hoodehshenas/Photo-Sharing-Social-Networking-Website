@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>ارسال یک مطلب</h1>
+<img src="{{ request.GET.url }}" class="image-preview">
+<form method="post">
+{{ form.as_p }}
+{% csrf_token %}
+<input type="submit" value="ارسالش کن!">
+</form>
+{% endblock %}

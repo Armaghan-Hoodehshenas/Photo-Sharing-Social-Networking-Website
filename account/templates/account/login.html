@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+  <h1>ورود به پروفایل</h1>
+  {% if form.errors %}
+    <p>
+      نام کاربری با رمز عبور مطابقت ندارد.
+      لطفا دوباره امتحان کن.
+    </p>
+  {% else %}
+    <p>لطفا از فرم زیر برای وارد شدن به وینکی استفاده کن</p>
+  {% endif %}
+  <div class="login-form">
+    <form action="{% url 'login' %}" method="post">
+      {{ form.as_p }}
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ next }}" />
+      <p><input type="submit" value="ورود"></p>
+    </form>
+  </div>
+  <div class="social">
+	<ul>
+		<li class="google">
+			<a href="{% url "social:begin" "google-oauth2" %}">ورود با اکانت گوگل</a>
+		</li>
+	</ul>
+  </div>
+{% endblock %}

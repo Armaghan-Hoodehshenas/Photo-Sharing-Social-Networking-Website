@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{% block title %}Winki|وینکی{% endblock %}</title>
+  <link href="{% static "css/base.css" %}" rel="stylesheet">
+</head>
+<body>
+  <div id="header">
+	<span class="logo">Winki|وینکی</span>
+    {% if request.user.is_authenticated %}
+    <ul class="menu">
+      <li {% if section == "dashboard" %}class="selected"{% endif %}>
+        <a href="{% url "dashboard" %}">پروفایل من</a>
+      </li>
+	  <li {% if section == "images" %}class="selected"{% endif %}>
+        <a href="{% url "images:list" %}">گشت و گذار در وینکی</a>
+      </li>
+      <li {% if section == "create" %}class="selected"{% endif %}>
+        <a href="{% url "images:create" %}">ارسال مطلب جدید</a>
+      </li>
+      <li {% if section == "people" %}class="selected"{% endif %}>
+        <a href="{% url "user_list" %}">افرادی که در وینکی هستند</a>
+      </li>
+    </ul>
+  {% endif %}
+  <span class="user">
+    {% if request.user.is_authenticated %}
+      سلام {{ request.user.first_name }},
+      <a href="{% url "logout" %}">خروج</a>
+    {% else %}
+      <a href="{% url "login" %}">ورود</a>
+    {% endif %}
+  </span>
+  </div>
+
+  {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <li class="{{ message.tags }}">
+          {{ message|safe }}
+            <a href="#" class="close">x</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+	<div id="content">
+		{% block content %}
+		{% endblock %}
+	</div>
+  
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/js-cookie@2.2.1/src/js.cookie.min.js"></script>
+	<script>
+		var csrftoken = Cookies.get('csrftoken');
+		function csrfSafeMethod(method) {
+			// these HTTP methods do not require CSRF protection
+			return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+		}
+		$.ajaxSetup({
+			beforeSend: function(xhr, settings) {
+				if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+					xhr.setRequestHeader("X-CSRFToken", csrftoken);
+				}
+			}
+		});
+		$(document).ready(function(){
+			{% block domready %}
+			{% endblock %}
+		});
+	</script>
+
+</body>
+</html>
